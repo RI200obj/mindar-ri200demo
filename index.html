@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>test-ri200-mind</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
+      <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+      <script src="gesture-detector.js"></script>
+      <script src="gesture-handler.js"></script>
+      <script src="play-on-click.js"></script>
+    </head>
+    <body>
+      <a-scene 
+        mindar-image="imageTargetSrc: ri200-3.mind; filterMinCF:0.0001; filterBeta: 1" 
+        color-space="sRGB" 
+        renderer="colorManagement: true, physicallyCorrectLights" 
+        vr-mode-ui="enabled: false" 
+        device-orientation-permission-ui="enabled: false"
+        gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/v1/decoders/"
+        maxTrack: 3
+        gesture-detector
+      >
+        <a-assets>
+          <a-asset-item id="1s2s" src="1s2s.gltf"></a-asset-item>
+          <video id="video" autoplay loop="true" src="video.mp4"></video>
+          <img id="ri" src="ri.png"></video>
+          <a-asset-item id="griffles" src="griffles.gltf"></a-asset-item>
+        </a-assets>
+  
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+  
+        <a-entity mindar-image-target="targetIndex: 0">
+            <a-entity
+              id="1s2s-model"
+              gltf-model="#1s2s"
+              rotation="0 0 0" 
+              position="0 0 0" 
+              scale="0.2 0.2 0.2" 
+              gesture-handler
+              animation-mixer
+            >
+            </a-entity>
+        </a-entity>
+
+        <a-entity mindar-image-target="targetIndex: 1">
+          <a-video 
+            src="#video" 
+            webkit-playsinline 
+            playsinline 
+            width="1" 
+            height="2" 
+            position="0 2 0"
+            play-on-click
+          >
+          </a-video>
+          <a-image src="#ri" width="1" height="1"></a-image>
+        </a-entity>
+
+        <a-entity mindar-image-target="targetIndex: 2">
+          <a-entity
+            id="griffles-model"
+            gltf-model="#griffles"
+            rotation="0 0 0" 
+            position="0 0 0" 
+            scale="2 2 2" 
+            gesture-handler
+            animation-mixer
+          >
+          </a-entity>
+        </a-entity>
+      </a-scene>
+    </body>
+  </html>
